@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conversor Web</title>
+  </head>
+  <body>
+    <main class="app">
+      <header>
+        <span class="logo" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l4 4-4 4"/><path d="M3 7h18"/><path d="M7 21l-4-4 4-4"/><path d="M21 17H3"/></svg>
+        </span>
+        <div>
+          <h1>Conversor Web</h1>
+          <p class="subtitle">Seus arquivos são convertidos no seu navegador. Nada é enviado para servidor.</p>
+        </div>
+      </header>
+
+      <p class="notice" id="file-protocol-notice" hidden>
+        Esta página foi aberta direto do disco, então a conversão não funciona.
+        Rode <code>npm install</code> e depois <code>npm run dev</code> na pasta do projeto e abra o endereço que aparecer (ex.: <code>http://localhost:5173</code>).
+      </p>
+      <script>
+        // Script clássico: roda mesmo via file://, onde o main.ts não carrega.
+        if (location.protocol === "file:") document.getElementById("file-protocol-notice").hidden = false;
+      </script>
+
+      <label class="dropzone" id="dropzone">
+        <input type="file" id="file-input" multiple hidden />
+        <span class="dropzone-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+        </span>
+        <span class="dropzone-text">Arraste arquivos aqui ou <u>clique para escolher</u></span>
+        <span class="dropzone-hint" id="accepted-hint"></span>
+      </label>
+
+      <section class="options">
+        <label>
+          Converter para
+          <select id="target-format"></select>
+        </label>
+        <label id="quality-wrapper">
+          <span>Qualidade: <output id="quality-value">90</output>%</span>
+          <input type="range" id="quality" min="10" max="100" value="90" />
+        </label>
+      </section>
+
+      <ul class="jobs" id="jobs"></ul>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
